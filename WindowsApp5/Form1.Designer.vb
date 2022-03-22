@@ -156,7 +156,7 @@ Partial Class Form1
         '
         'TrackBar1
         '
-        Me.TrackBar1.Location = New System.Drawing.Point(370, 12)
+        Me.TrackBar1.Location = New System.Drawing.Point(409, 12)
         Me.TrackBar1.Name = "TrackBar1"
         Me.TrackBar1.Size = New System.Drawing.Size(104, 45)
         Me.TrackBar1.TabIndex = 21
