@@ -138,7 +138,7 @@ Partial Class Form1
         'Button9
         '
         Me.Button9.BackColor = System.Drawing.Color.Black
-        Me.Button9.Location = New System.Drawing.Point(707, 74)
+        Me.Button9.Location = New System.Drawing.Point(679, 74)
         Me.Button9.Name = "Button9"
         Me.Button9.Size = New System.Drawing.Size(26, 25)
         Me.Button9.TabIndex = 11
