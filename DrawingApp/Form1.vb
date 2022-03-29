@@ -3,6 +3,7 @@
     Dim m_shapes As New Collection
     Dim c As Color
     Dim w As Integer
+    Dim Type As String
 
 
     Private Sub pictureBox1_MouseDown(sender As Object, e As MouseEventArgs) Handles PictureBox1.MouseDown
@@ -15,10 +16,39 @@
             Dim l As New Line(PictureBox1.Image, m_Previous, e.Location)
             l.Pen = New Pen(c, w)
             m_shapes.Add(l)
+            Dim d As Object
+
+            If Type = "Line" Then
+                d = New Line(PictureBox1.Image, m_Previous, e.Location)
+                d.Pen = New Pen(c, w)
+            End If
+            If Type = "Rectangle" Then
+                d = New Rect(PictureBox1.Image, m_Previous, e.Location)
+                d.Pen = New Pen(c, w)
+            End If
+            If Type = "Arc" Then
+                d = New Arc(PictureBox1.Image, m_Previous, e.Location)
+                d.Pen = New Pen(c, w)
+            End If
+            If Type = "circle" Then
+                d = New circle(PictureBox1.Image, m_Previous, e.Location)
+                d.Pen = New Pen(c, w)
+            End If
+            If Type = "Pie" Then
+                d = New Pie(PictureBox1.Image, m_Previous, e.Location)
+                d.Pen = New Pen(c, w)
+            End If
+            If Type = "Pentagon" Then
+                d = New Pentagon(PictureBox1.Image, m_Previous, e.Location)
+                d.Pen = New Pen(c, w)
+            End If
+
+            m_shapes.Add(d)
             PictureBox1.Invalidate()
             m_Previous = e.Location
         End If
     End Sub
+
 
     Private Sub pictureBox1_MouseUp(sender As Object, e As MouseEventArgs) Handles PictureBox1.MouseUp
         m_Previous = Nothing
@@ -35,12 +65,12 @@
     End Sub
 
     Private Sub PictureBox1_Paint(sender As Object, e As PaintEventArgs) Handles PictureBox1.Paint
-        For Each s As Line In m_shapes
+        For Each s As Object In m_shapes
             s.Draw()
         Next
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Sub Button1_Click(sender As Object, e As EventArgs)
         ColorDialog1.ShowDialog()
         c = ColorDialog1.Color
         Button1.BackColor = c
@@ -90,5 +120,37 @@
         End Using
         PictureBox1.Image = bmp
 
+    End Sub
+
+    Private Sub Button11_Click(sender As Object, e As EventArgs) Handles Button11.Click
+        Type = "Line"
+    End Sub
+
+    Private Sub Button12_Click(sender As Object, e As EventArgs) Handles Button12.Click
+        Type = "Rectangle"
+    End Sub
+
+    Private Sub Button13_Click(sender As Object, e As EventArgs) Handles Button13.Click
+        Type = "circle"
+    End Sub
+
+    Private Sub Button14_Click(sender As Object, e As EventArgs) Handles Button14.Click
+        Type = "Pie"
+    End Sub
+
+    Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
+        Type = "Arc"
+    End Sub
+
+    Private Sub Button15_Click(sender As Object, e As EventArgs) Handles Button15.Click
+        SaveFileDialog1.Showdialog()
+    End Sub
+
+    Private Sub SaveFileDialog1_FileOk(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles SaveFileDialog1.FileOk
+        PictureBox1.Image.Save(SaveFileDialog1.FileName)
+    End Sub
+
+    Private Sub Button16_Click(sender As Object, e As EventArgs) Handles Button16.Click
+        Type = "Pentagon"
     End Sub
 End Class
