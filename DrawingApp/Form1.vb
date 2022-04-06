@@ -24,7 +24,11 @@
             End If
             If Type = "Rectangle" Then
                 d = New Rect(PictureBox1.Image, m_Previous, e.Location)
+                d.fill = CheckBox1.Checked
+                d.color1 = c
                 d.Pen = New Pen(c, w)
+                d.h = 10
+                d.w = 5
             End If
             If Type = "Arc" Then
                 d = New Arc(PictureBox1.Image, m_Previous, e.Location)
@@ -42,11 +46,25 @@
                 d = New Pentagon(PictureBox1.Image, m_Previous, e.Location)
                 d.Pen = New Pen(c, w)
             End If
+            If Type = "n-gon" Then
+                d = New n_gon(PictureBox1.Image, m_Previous, e.Location)
+                d.pen = New Pen(c, w)
+                d.sides = TrackBar2.Value
+                d.radius = TrackBar3.Value
+            End If
+            If Type = "Picture" Then
+                d = New PBox(PictureBox1.Image, m_Previous, e.Location)
+                d.w = TrackBar4.Value
+                d.h = TrackBar4.Value
+
+
+                d.picture = PictureBox2.Image
+            End If
 
             m_shapes.Add(d)
-            PictureBox1.Invalidate()
-            m_Previous = e.Location
-        End If
+                PictureBox1.Invalidate()
+                m_Previous = e.Location
+            End If
     End Sub
 
 
@@ -152,5 +170,29 @@
 
     Private Sub Button16_Click(sender As Object, e As EventArgs) Handles Button16.Click
         Type = "Pentagon"
+    End Sub
+
+    Private Sub Button17_Click(sender As Object, e As EventArgs) Handles Button17.Click
+        Type = "n-gon"
+    End Sub
+
+    Private Sub PictureBox2_Click(sender As Object, e As EventArgs) Handles PictureBox2.Click
+        Type = "Picture"
+    End Sub
+
+    Private Sub Button18_Click(sender As Object, e As EventArgs) Handles Button18.Click
+        Dim bmp As New Bitmap(PictureBox1.Width, PictureBox1.Height)
+        Using g As Graphics = Graphics.FromImage(bmp)
+            g.Clear(Color.Black)
+        End Using
+        PictureBox1.Image = bmp
+    End Sub
+
+    Private Sub Button19_Click(sender As Object, e As EventArgs) Handles Button19.Click
+        OpenFileDialog1.ShowDialog()
+    End Sub
+
+    Private Sub OpenFileDialog1_FileOk(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles OpenFileDialog1.FileOk
+        PictureBox2.Load(OpenFileDialog1.FileName)
     End Sub
 End Class
