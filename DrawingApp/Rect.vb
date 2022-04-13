@@ -21,8 +21,8 @@
             If fill Then
                 Dim lingrBrush As Drawing.Drawing2D.LinearGradientBrush
                 lingrBrush = New Drawing.Drawing2D.LinearGradientBrush(
-                                New Point(0, 10),
-                                New Point(200, 10),
+                                New Point(10, 10),
+                                New Point(20, 10),
                                 color1,
                                 color2)
                 g.FillRectangle(lingrBrush, m_a.X, m_a.Y, 100, 100)

@@ -21,11 +21,13 @@
             If Type = "Line" Then
                 d = New Line(PictureBox1.Image, m_Previous, e.Location)
                 d.Pen = New Pen(c, w)
+                d.xspeed = xspeedTrackBar.Value
             End If
             If Type = "Rectangle" Then
                 d = New Rect(PictureBox1.Image, m_Previous, e.Location)
                 d.fill = CheckBox1.Checked
-                d.color1 = c
+                d.color1 = Button20.BackColor
+                d.color2 = Button21.BackColor
                 d.Pen = New Pen(c, w)
                 d.h = 10
                 d.w = 5
@@ -36,6 +38,9 @@
             End If
             If Type = "circle" Then
                 d = New circle(PictureBox1.Image, m_Previous, e.Location)
+                d.fill = CheckBox1.Checked
+                d.color1 = Button20.BackColor
+                d.color2 = Button21.BackColor
                 d.Pen = New Pen(c, w)
             End If
             If Type = "Pie" Then
@@ -56,15 +61,13 @@
                 d = New PBox(PictureBox1.Image, m_Previous, e.Location)
                 d.w = TrackBar4.Value
                 d.h = TrackBar4.Value
-
-
                 d.picture = PictureBox2.Image
             End If
 
             m_shapes.Add(d)
-                PictureBox1.Invalidate()
-                m_Previous = e.Location
-            End If
+            PictureBox1.Invalidate()
+            m_Previous = e.Location
+        End If
     End Sub
 
 
@@ -86,6 +89,9 @@
         For Each s As Object In m_shapes
             s.Draw()
         Next
+        If CheckBox2.Checked Then
+            Refresh()
+        End If
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs)
@@ -194,5 +200,31 @@
 
     Private Sub OpenFileDialog1_FileOk(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles OpenFileDialog1.FileOk
         PictureBox2.Load(OpenFileDialog1.FileName)
+    End Sub
+
+    Private Sub Button20_Click(sender As Object, e As EventArgs) Handles Button20.Click
+        ColorDialog1.ShowDialog()
+        c = ColorDialog1.Color
+        sender.backcolor = c
+    End Sub
+
+    Private Sub Button21_Click(sender As Object, e As EventArgs) Handles Button21.Click
+        ColorDialog1.ShowDialog()
+        c = ColorDialog1.Color
+        sender.backcolor = c
+    End Sub
+
+    Private Sub Button22_Click(sender As Object, e As EventArgs) Handles Button22.Click
+        Dim bmp As New Bitmap(PictureBox1.Width, PictureBox1.Height)
+        Using g As Graphics = Graphics.FromImage(bmp)
+            g.Clear(Color.Red)
+        End Using
+        PictureBox1.Image = bmp
+    End Sub
+
+    Private Sub PictureBox3_Click(sender As Object, e As EventArgs) Handles PictureBox3.Click
+        OpenFileDialog2.ShowDialog()
+        PictureBox1.Load(OpenFileDialog2.FileName)
+
     End Sub
 End Class
